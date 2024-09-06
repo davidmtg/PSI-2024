@@ -1,7 +1,22 @@
 from django.contrib import admin
+from .models import * 
 
 # Register your models here.
-from .models import * #imporata nossos models
-admin.site.register(Fabricante) #adiciona a interface do adm
-admin.site.register(Categoria)
-admin.site.register(Produto)
+
+class FabricanteAdmin(admin.ModelAdmin):
+    date_hierarchy = 'criado_em'
+    search_fields = ('Fabricante',)
+
+class CategoriaAdmin(admin.ModelAdmin):
+    date_hierarchy = 'criado_em'
+    search_fields = ('Categoria',)
+
+class ProdutoAdmin(admin.ModelAdmin):
+    date_hierarchy = 'criado_em'
+    list_display = ('Produto', 'destaque', 'promocao', 'msgPromocao', 'preco', 'categoria', 'fabricante')
+    empty_value_display = 'Vazio'
+    search_fields = ('Produto',)
+
+admin.site.register(Fabricante, FabricanteAdmin) 
+admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(Produto, ProdutoAdmin)
